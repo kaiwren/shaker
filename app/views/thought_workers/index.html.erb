@@ -1,0 +1,28 @@
+<h1>Listing thought_workers</h1>
+
+<table>
+    <tr>
+        <td>id</td>
+        <td>real</td>
+        <td>imagined</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <% for thought_worker in @thought_workers %>
+      <tr>
+          <td><%= thought_worker.id %></td>
+          <td><%= thought_worker.real %></td>
+          <td><%= thought_worker.imagined %></td>
+
+          <td><%= link_to 'Show', thought_worker %></td>
+          <td><%= link_to 'Edit', edit_thought_worker_path(thought_worker) %></td>
+          <td><%= link_to 'Destroy', thought_worker, :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+</table>
+
+<br/>
+
+<%= link_to 'New thought_worker', new_thought_worker_path %>

@@ -1,0 +1,13 @@
+<h1>New thought_worker</h1>
+
+<%= error_messages_for :thought_worker %>
+
+<% form_for(@thought_worker) do |f| %>
+  <p>
+    Real Salary: <%= f.text_field 'real' %><br/>
+    Imagined Salary: <%= f.text_field 'imagined' %>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', thought_workers_path %>

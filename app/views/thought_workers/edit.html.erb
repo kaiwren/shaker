@@ -1,0 +1,14 @@
+<h1>Editing thought_worker</h1>
+
+<%= error_messages_for :thought_worker %>
+
+<% form_for(@thought_worker) do |f| %>
+  <p>
+      Real: <%= f.text_field 'real' %><br/>
+      Imagined: <%= f.text_field 'imagined' %>
+      <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @thought_worker %> |
+<%= link_to 'Back', thought_workers_path %>
