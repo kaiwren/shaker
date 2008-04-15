@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
   end
 
   def average_suspected_amount
+    return 0 if received_guesses.empty?
     sum = 0
     received_guesses.each{|guess| sum += guess.suspected_amount}
     sum / received_guesses.count

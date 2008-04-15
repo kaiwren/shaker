@@ -1,4 +1,4 @@
-class GuesssController < ApplicationController
+class GuessesController < ApplicationController
   # GET /thought_workers
   # GET /thought_workers.xml
   def index
@@ -48,6 +48,7 @@ class GuesssController < ApplicationController
         format.html { redirect_to(@guess) }
         format.xml  { render :xml => @guess, :status => :created, :location => @guess }
       else
+        flash[:error] = @guess.errors.collect{|err| "<div>#{err.to_s}</div>"}
         format.html { render :action => "new" }
         format.xml  { render :xml => @guess.errors, :status => :unprocessable_entity }
       end

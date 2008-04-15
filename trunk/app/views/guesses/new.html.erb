@@ -1,5 +1,5 @@
 New!
-<% form_for @guess, :url=> guess_path(@guess),  :html => {:method=> :put} do |f|  %>
-  <span class="guess">How much does this maaderchote make? <%= f.text_field :amount, :value => @guess.amount %></span>
+<% form_for @guess, :url=> guess_path(@guess),  :html => {:method=> :post} do |f|  %>
+  <span class="guess">How much does this maaderchote make? <%= f.text_field :suspected_amount, :value => @guess.suspected_amount %></span>
   <span class="submit.button"><%= f.submit%></span>
 <% end %>

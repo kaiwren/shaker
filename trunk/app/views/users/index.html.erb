@@ -3,8 +3,7 @@
   <span class="email"><%= user.email %></span>
   <span class="real"><%= user.real %></span>
   <span class="imagined"><%= user.imagined %></span>
-  <span class="suspected"><%= user.suspected %></span>
-  <span class="deserved"><%= user.deserved %></span>
+  <span class="suspected.average"><%= user.average_suspected_amount %></span>
   <span class="guess.link"><%= link_to 'guess', {:controller => 'guesses', :action => 'new'} %></span>
   <span class="edit.link"><%= link_to 'edit?', edit_user_url(user) %></span>
 <% } %>

@@ -27,4 +27,8 @@ describe "A", User do
     }
     @twer_two.average_suspected_amount.should == 5
   end
+
+  it "shouldn't die with a divide by zero when there are no guesses" do
+    @twer_two.average_suspected_amount.should == 0
+  end
 end
