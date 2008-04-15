@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   def remember_token?
-    remember_token_expires_at && Time.now.utc < remember_token_expires_at 
+    remember_token_expires_at && Time.now.utc < remember_token_expires_at
   end
 
   # These create and unset the fields required for remembering users between browser closes
@@ -53,14 +53,20 @@ class User < ActiveRecord::Base
     save(false)
   end
 
+  def average_suspected_amount
+    sum = 0
+    received_guesses.each{|guess| sum += guess.suspected_amount}
+    sum / received_guesses.count
+  end
+    
   protected
-    # before filter 
+    # before filter
     def encrypt_password
       return if password.blank?
       self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
       self.crypted_password = encrypt(password)
     end
-    
+
     def password_required?
       crypted_password.blank? || !password.blank?
     end

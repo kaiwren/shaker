@@ -1,0 +1,8 @@
+Edit?
+<% form_for @user, :url=> user_path(@user),  :html => {:method=> :put} do |f|  %>
+  <span class="name"><%= f.text_field :name, :value => @user.name %></span>
+  <span class="email"><%= f.text_field :email, :value => @user.email %></span>
+  <span class="real"><%= f.text_field :real, :value => @user.real %></span>
+  <span class="imagined"><%= f.text_field :imagined, :value => @user.imagined %></span>
+  <span class="submit.button"><%= f.submit%></span>
+<% end %>
