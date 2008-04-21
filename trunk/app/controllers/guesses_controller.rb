@@ -1,4 +1,7 @@
 class GuessesController < ApplicationController
+  before_filter :load_target_user, :only => [:new, :create]
+  attr_reader :target_user
+
   # GET /thought_workers
   # GET /thought_workers.xml
   def index
@@ -14,7 +17,6 @@ class GuessesController < ApplicationController
   # GET /users/1.xml
   def show
     @guess = Guess.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @guess }
@@ -40,12 +42,12 @@ class GuessesController < ApplicationController
   # POST /users
   # POST /users.xml
   def create
-    @guess = Guess.new(params[:thought_worker])
+    @guess = Guess.new((params[:guess]).merge({:guessing_user => current_user, :receiving_user => target_user }))
 
     respond_to do |format|
       if @guess.save
         flash[:notice] = 'Guess was successfully created.'
-        format.html { redirect_to(@guess) }
+        format.html { redirect_to(user_guess_url(target_user, @guess)) }
         format.xml  { render :xml => @guess, :status => :created, :location => @guess }
       else
         flash[:error] = @guess.errors.collect{|err| "<div>#{err.to_s}</div>"}
@@ -82,5 +84,10 @@ class GuessesController < ApplicationController
       format.html { redirect_to(thought_workers_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+  def load_target_user
+    @target_user = User.find(params[:user_id])
   end
 end
