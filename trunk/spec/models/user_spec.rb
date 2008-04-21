@@ -31,4 +31,9 @@ describe "A", User do
   it "shouldn't die with a divide by zero when there are no guesses" do
     @twer_two.average_suspected_amount.should == 0
   end
+
+  it "should only be able to make one guess about another user's suspected salary" do
+    Guess.create(:guessing_user => @twer_one, :receiving_user => @twer_two)
+    Guess.new(:guessing_user => @twer_one, :receiving_user => @twer_two).save.should
+  end
 end
