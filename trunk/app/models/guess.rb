@@ -6,7 +6,7 @@ class Guess < ActiveRecord::Base
   validates_presence_of :suspected_amount, :if => lambda{|guess| guess.deserved_amount.nil? }
   validates_presence_of :deserved_amount, :if => lambda{|guess| guess.suspected_amount.nil? }
 
-  validates_numericality_of :suspected_amount, :if => lambda{|guess| guess.deserved_amount.nil? }
-  validates_numericality_of :deserved_amount, :if => lambda{|guess| guess.suspected_amount.nil? }
+  validates_numericality_of :suspected_amount, :unless => lambda{|guess| guess.suspected_amount.nil? }
+  validates_numericality_of :deserved_amount, :unless => lambda{|guess| guess.deserved_amount.nil? }
 
 end

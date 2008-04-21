@@ -2,7 +2,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   has_many  :guesses, :foreign_key => :guessing_user_id
   has_many  :received_guesses, :foreign_key => :receiving_user_id, :class_name => 'Guess'
-  
+
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
@@ -54,21 +54,30 @@ class User < ActiveRecord::Base
   end
 
   def average_suspected_amount
+    calculate_average{|guess| guess.suspected_amount}
+  end
+
+  def average_deserved_amount
+    calculate_average{|guess| guess.deserved_amount}
+  end
+
+  protected
+  # before filter
+  def encrypt_password
+    return if password.blank?
+    self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
+    self.crypted_password = encrypt(password)
+  end
+
+  def password_required?
+    crypted_password.blank? || !password.blank?
+  end
+
+  private
+  def calculate_average
     return 0 if received_guesses.empty?
     sum = 0
-    received_guesses.each{|guess| sum += guess.suspected_amount}
+    received_guesses.each{|guess| sum += yield(guess)}
     sum / received_guesses.count
   end
-    
-  protected
-    # before filter
-    def encrypt_password
-      return if password.blank?
-      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
-      self.crypted_password = encrypt(password)
-    end
-
-    def password_required?
-      crypted_password.blank? || !password.blank?
-    end
 end

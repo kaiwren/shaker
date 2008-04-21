@@ -11,7 +11,7 @@ describe "A", User do
     @twer_one.should be_valid
     @twer_two.should be_valid
 
-    g = Guess.new(:guessing_user => @twer_one, :receiving_user => @twer_two)
+    g = Guess.new(:guessing_user => @twer_one, :receiving_user => @twer_two, :suspected_amount => 100)
     g.save.should be_true
 
     @twer_one.reload
@@ -28,8 +28,19 @@ describe "A", User do
     @twer_two.average_suspected_amount.should == 5
   end
 
-  it "shouldn't die with a divide by zero when there are no guesses" do
+  it "average suspected shouldn't die with a divide by zero when there are no guesses" do
     @twer_two.average_suspected_amount.should == 0
+  end
+
+  it "should know how to average out deserved salaries" do
+    (1..10).each{|i|
+      Guess.new(:guessing_user => @twer_one, :receiving_user => @twer_two, :deserved_amount => i).save.should be_true
+    }
+    @twer_two.average_deserved_amount.should == 5
+  end
+
+  it "average deserved shouldn't die with a divide by zero when there are no guesses" do
+    @twer_two.average_deserved_amount.should == 0
   end
 
   it "should only be able to make one guess about another user's suspected salary" do

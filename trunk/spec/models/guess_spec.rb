@@ -11,8 +11,8 @@ describe "A", User do
   it "should be invalid if it doesn't have at least one of the two amounts" do
     g = Guess.new(:guessing_user => User.new, :receiving_user => User.new)
     g.should_not be_valid
-    g.should have(2).errors_on(:suspected_amount)
-    g.should have(2).errors_on(:deserved_amount)
+    g.should have(1).errors_on(:suspected_amount)
+    g.should have(1).errors_on(:deserved_amount)
   end
 
   it "should ensure that suspected amount is a number" do
