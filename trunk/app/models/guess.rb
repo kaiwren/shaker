@@ -9,4 +9,5 @@ class Guess < ActiveRecord::Base
   validates_numericality_of :suspected_amount, :unless => lambda{|guess| guess.suspected_amount.nil? }
   validates_numericality_of :deserved_amount, :unless => lambda{|guess| guess.deserved_amount.nil? }
 
+  validates_uniqueness_of  :receiving_user_id, :scope => :guessing_user_id
 end
