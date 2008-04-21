@@ -51,4 +51,13 @@ describe "A", User do
      @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
      @twer_one.average_suspected_amount.should == 5
   end
+
+  it "should not barf when calculating averages if there are no received guesses" do
+    @twer_one.average_suspected_amount.should == 0
+  end
+
+  it "should not barf when calculating averages for a amount type if there are guesses with nil values for said amount" do
+    @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
+    @twer_one.average_suspected_amount.should == 0
+  end
 end

@@ -75,9 +75,13 @@ class User < ActiveRecord::Base
 
   private
   def calculate_average(&field_strategy)
-    return 0 if received_guesses.empty?
+    return 0 if non_nil_received_guess_count(field_strategy) == 0
     sum = 0
     received_guesses.each{|guess| sum += field_strategy.call(guess).to_i}
-    sum / received_guesses.reject{|guess| field_strategy.call(guess).nil? }.size
+    sum / non_nil_received_guess_count(field_strategy)
+  end
+
+  def non_nil_received_guess_count(field_strategy)
+    received_guesses.reject{|guess| field_strategy.call(guess).nil? }.size
   end
 end

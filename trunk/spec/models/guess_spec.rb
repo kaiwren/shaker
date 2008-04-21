@@ -37,6 +37,11 @@ describe "A", User do
     Guess.new(:guessing_user => User.new, :receiving_user => User.new, :suspected_amount => 100, :deserved_amount => 100).should be_valid
   end
 
+  it "should have a positive value for amounts" do
+    Guess.new(:suspected_amount => -33).should  have(1).errors_on(:suspected_amount)
+    Guess.new(:deserved_amount => -33).should  have(1).errors_on(:deserved_amount)
+  end
+
   it "should be unique for a given pair of users" do
     twer_one = User.new(:login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire')
     twer_two = User.new(:login => 'mire', :email => 'mire@example.com', :password => 'muire', :password_confirmation => 'muire')
