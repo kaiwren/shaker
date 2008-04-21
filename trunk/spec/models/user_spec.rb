@@ -22,21 +22,17 @@ describe "A", User do
   end
 
   it "should know how to average out suspected salaries" do
-    (1..10).each{|i|
-      Guess.new(:guessing_user => @twer_one, :receiving_user => @twer_two, :suspected_amount => i).save.should be_true
-    }
-    @twer_two.average_suspected_amount.should == 5
+    @twer_one.received_guesses = (1..10).collect{|i|  Guess.new(:suspected_amount => i) }
+    @twer_one.average_suspected_amount.should == 5
+  end
+
+  it "should know how to average out deserved salaries" do
+    @twer_one.received_guesses = (1..10).collect{|i|  Guess.new(:deserved_amount => i) }
+    @twer_one.average_deserved_amount.should == 5
   end
 
   it "average suspected shouldn't die with a divide by zero when there are no guesses" do
     @twer_two.average_suspected_amount.should == 0
-  end
-
-  it "should know how to average out deserved salaries" do
-    (1..10).each{|i|
-      Guess.new(:guessing_user => @twer_one, :receiving_user => @twer_two, :deserved_amount => i).save.should be_true
-    }
-    @twer_two.average_deserved_amount.should == 5
   end
 
   it "average deserved shouldn't die with a divide by zero when there are no guesses" do
@@ -46,5 +42,13 @@ describe "A", User do
   it "should only be able to make one guess about another user's suspected salary" do
     Guess.create(:guessing_user => @twer_one, :receiving_user => @twer_two)
     Guess.new(:guessing_user => @twer_one, :receiving_user => @twer_two).save.should
+  end
+
+  it "should calculate average supected salary even if some guesses don't have it defined" do
+     @twer_one.received_guesses = (1..10).collect{|i|  Guess.new(:suspected_amount => i) }
+     @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
+     @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
+     @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
+     @twer_one.average_suspected_amount.should == 5
   end
 end

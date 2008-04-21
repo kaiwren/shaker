@@ -4,6 +4,7 @@
   <span class="real"><%= user.real %></span>
   <span class="imagined"><%= user.imagined %></span>
   <span class="suspected.average"><%= user.average_suspected_amount %></span>
+  <span class="deserved.average"><%= user.average_deserved_amount %></span>
   <span class="guess.link"><%= link_to 'guess', new_user_guess_path(user) %></span>
   <span class="edit.link"><%= link_to 'edit?', edit_user_url(user) %></span>
 <% } %>

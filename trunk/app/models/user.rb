@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   end
 
   def average_suspected_amount
-    calculate_average{|guess| guess.suspected_amount}
+    calculate_average{|guess| guess.suspected_amount }
   end
 
   def average_deserved_amount
@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   def calculate_average
     return 0 if received_guesses.empty?
     sum = 0
-    received_guesses.each{|guess| sum += yield(guess)}
-    sum / received_guesses.count
+    received_guesses.each{|guess| sum += yield(guess).to_i}
+    sum / received_guesses.reject{|guess| yield(guess).nil? }.size
   end
 end
