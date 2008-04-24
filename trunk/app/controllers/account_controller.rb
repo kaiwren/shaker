@@ -44,4 +44,15 @@ class AccountController < ApplicationController
     flash[:notice] = "You have been logged out."
     redirect_back_or_default(:controller => '/account', :action => 'index')
   end
+
+  def activate
+    @user = User.find_by_activation_code(params[:id]) if params[:id]
+    if @user and @user.activate
+      self.current_user = @user
+      flash[:notice] = "Your account has been activated."
+    else
+      flash[:notice] = "It looks like you're trying to activate an account.  Perhaps have already activated this account?"
+    end
+    redirect_back_or_default(:controller => 'users', :action => 'index')
+  end
 end

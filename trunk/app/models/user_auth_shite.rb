@@ -14,13 +14,14 @@ module UserAuthShite
       validates_length_of       :email,    :within => 3..100
       validates_uniqueness_of   :login, :email, :case_sensitive => false
       before_save :encrypt_password
+      before_create :make_activation_code
     end
   end
-
+  # http://technoweenie.stikipad.com/plugins/show/User+Activation
   module ClassMethods
     # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
     def authenticate(login, password)
-      u = find_by_login(login) # need to get the salt
+      u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL', login]
       u && u.authenticated?(password) ? u : nil
     end
 
@@ -28,6 +29,17 @@ module UserAuthShite
     def encrypt(password, salt)
       Digest::SHA1.hexdigest("--#{salt}--#{password}--")
     end
+  end
+
+  # Activates the user in the database.
+  def activate
+    @activated = true
+    update_attributes(:activated_at => Time.now.utc, :activation_code => nil)
+  end
+
+  # Returns true if the user has just been activated.
+  def recently_activated?
+    @activated
   end
 
   # Encrypts the password with the user salt
@@ -66,5 +78,9 @@ module UserAuthShite
 
   def password_required?
     crypted_password.blank? || !password.blank?
+  end
+
+  def make_activation_code
+    self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
   end
 end

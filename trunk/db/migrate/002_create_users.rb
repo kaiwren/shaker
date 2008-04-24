@@ -7,6 +7,8 @@ class CreateUsers < ActiveRecord::Migration
       t.column :salt,                      :string, :limit => 40
       t.column :remember_token,            :string
       t.column :remember_token_expires_at, :datetime
+      t.column :activation_code, :string, :limit => 40
+      t.column :activated_at, :datetime
       t.column :real, :integer
       t.column :imagined, :integer
       t.column :employee_id, :integer
