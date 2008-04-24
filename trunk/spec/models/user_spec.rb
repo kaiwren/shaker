@@ -60,4 +60,33 @@ describe "A", User do
     @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
     @twer_one.average_suspected_amount.should == 0
   end
+
+  it "should know if a user has not published his real salary" do
+    @twer_one.should_not be_announced
+  end
+
+  it "should know if a user has published his real salary" do
+    @twer_one.real = 123000
+    @twer_one.should be_announced
+  end
+
+  it "should not reveal the real salary when received guesses are fewer than 15" do
+    @twer_one.real = 123000
+    @twer_one.received_guesses.should have(0).things
+    @twer_one.checked_real.should be_nil
+  end
+
+  it "should reveal all when received guesses are greater than 14" do
+    @twer_two.real = 123000
+    @twer_two.checked_real.should be_nil
+    name = 'a';
+    for i in 1..16
+      user = User.create(:login => "quire_#{name}", :email => "quire_#{name}@example.com", :password => 'quire', :password_confirmation => 'quire')
+      @twer_two.received_guesses << Guess.new(:guessing_user => user, :receiving_user => @twer_two, :suspected_amount => 100 + i)
+      name.next!
+    end
+
+    @twer_two.save.should be_true
+    @twer_two.checked_real.should == 123000
+  end
 end

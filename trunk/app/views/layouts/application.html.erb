@@ -8,6 +8,11 @@
   <%= stylesheet_link_tag 'scaffold' %>
 </head>
 <body>
+
+<% if logged_in? %>
+  <div class="header"><%= link_to "Profile", edit_user_path(current_user) %> | <%= link_to "Logout", "account/logout" %></div>
+<% end %>  
+
 <p style="color: green"><%= flash[:notice] %></p>
 <p style="color: red"><%= flash[:error] %></p>
 <p style="color: blue"><%= flash[:confirm] %></p>

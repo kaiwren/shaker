@@ -81,3 +81,16 @@ td.centre{
   border-left: 1px gray dotted;
 }
 
+.profile-paragraph {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.shouting {
+  font-weight: bold;
+}
+
+.note {
+  font-size: 0.9em;
+  font-family: monospace;
+}

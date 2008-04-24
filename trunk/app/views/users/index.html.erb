@@ -4,23 +4,19 @@
         <td class="centre login">Login</td>
         <td class="centre email">Email</td>
         <td class="centre real">"Real" Salary</td>
-        <td class="centre imagined">Desired Salary</td>
-        <td class="centre suspected-average">Suspected Salary</td>
-        <td class="centre deserved-average">Deserved Salary</td>
+        <td class="centre suspected-average">Average Suspected Salary</td>
+        <td class="centre guess-count">Guess Count</td>
         <td class="centre guess"></td>
-        <td class="centre edit"></td>
       </tr>
     <% @users.each{|user| %>
       <tr>
         <td class="name"><%= user.name %></td>
         <td class="centre login"><%= user.login %></td>
         <td class="centre email"><%= user.email %></td>
-        <td class="centre real"><%= user.real %></td>
-        <td class="centre imagined"><%= user.imagined %></td>
+        <td class="centre real"><%= user.checked_real %></td>
         <td class="centre suspected-average"><%= user.average_suspected_amount %></td>
-        <td class="centre deserved-average"><%= user.average_deserved_amount %></td>
+        <td class="centre guess-count"><%= user.received_guesses.count %></td>  
         <td class="centre guess"><%= link_to 'guess', new_user_guess_path(user) %></td>
-        <td class="centre edit"><%= link_to 'edit?', edit_user_url(user) %></td>
       </tr>
     <% } %>
 </table>

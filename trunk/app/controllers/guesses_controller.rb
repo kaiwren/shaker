@@ -63,7 +63,7 @@ class GuessesController < ApplicationController
     @guess = Guess.find(params[:id])
 
     respond_to do |format|
-      if @guess.update_attributes(params[:thought_worker])
+      if @guess.update_attributes(params[:user])
         flash[:notice] = 'Guess was successfully updated.'
         format.html { redirect_to(@guess) }
         format.xml  { head :ok }
