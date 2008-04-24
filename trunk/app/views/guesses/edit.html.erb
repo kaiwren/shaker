@@ -1,0 +1,3 @@
+<% form_for @guess, :url=> user_guess_url(@target_user, @guess),  :html => {:method=> :put} do |@f|  %>
+  <%= render :partial => 'guess_form' %>
+<% end %>

@@ -1,4 +1,3 @@
-<% form_for @guess, :url=> user_guess_url(@target_user, @guess),  :html => {:method=> :post} do |f|  %>
-  <span class="guess">How much does this maaderchote make? <%= f.text_field :suspected_amount, :value => @guess.suspected_amount %></span>
-  <span class="submit.button"><%= f.submit%></span>
+<% form_for @guess, :url=> user_guess_url(@target_user, @guess),  :html => {:method=> :post} do |@f|  %>
+  <%= render :partial => 'guess_form' %>
 <% end %>

@@ -1,5 +1,5 @@
 class GuessesController < ApplicationController
-  before_filter :load_target_user, :only => [:new, :create]
+  before_filter :load_target_user, :only => [:new, :create, :edit, :update]
   attr_reader :target_user
 
   # GET /thought_workers
@@ -61,11 +61,10 @@ class GuessesController < ApplicationController
   # PUT /users/1.xml
   def update
     @guess = Guess.find(params[:id])
-
     respond_to do |format|
-      if @guess.update_attributes(params[:user])
+      if @guess.update_attributes(params[:guess])
         flash[:notice] = 'Guess was successfully updated.'
-        format.html { redirect_to(@guess) }
+        format.html { redirect_to(user_guess_url(target_user, @guess)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

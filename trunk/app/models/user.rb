@@ -1,5 +1,7 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
+  SHOWTIME_GUESS_THRESHOLD = 15
+
   has_many  :guesses, :foreign_key => :guessing_user_id
   has_many  :received_guesses, :foreign_key => :receiving_user_id, :class_name => 'Guess'
 
@@ -13,12 +15,28 @@ class User < ActiveRecord::Base
     calculate_average{|guess| guess.deserved_amount}
   end
 
-  def announced?
+  def published?
     not real.nil?
   end
 
+  def showtime?
+    not checked_real.nil?
+  end
+
   def checked_real
-    real if received_guesses.count > 14
+    real if received_guesses.count >= SHOWTIME_GUESS_THRESHOLD
+  end
+
+  def guesses_left_until_showtime
+    SHOWTIME_GUESS_THRESHOLD - received_guesses.count
+  end
+
+  def has_a_guess_from(user)
+    guess_from(user) ? true : false
+  end
+
+  def guess_from(user)
+    received_guesses.detect{|guess| guess.guessing_user == user }
   end
 
   private

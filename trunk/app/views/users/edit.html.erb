@@ -5,4 +5,4 @@
   <span class="real"><%= f.text_field :real, :value => @user.real %></span>
   <span class="submit.button"><%= f.submit "Publish!" %></span>
 <% end %>
-<div class="profile-paragraph note">Note: Your salary won't be officially published until at least 15 other ThoughtWorkers have attempted to guess it first. Encourage them!</div>
+<div class="profile-paragraph note">Note: Your salary won't be officially published until at least <%= User::SHOWTIME_GUESS_THRESHOLD %> other ThoughtWorkers have attempted to guess it first. Encourage them!</div>

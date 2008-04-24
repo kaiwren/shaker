@@ -6,7 +6,11 @@ class AccountController < ApplicationController
 
   # say something nice, you goof!  something sweet.
   def index
-    redirect_to(:action => 'login') unless logged_in?
+    if logged_in?
+      redirect_to(:controller => 'users')
+    else
+      redirect_to(:action => 'login')
+    end
   end
 
   def login

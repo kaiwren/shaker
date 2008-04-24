@@ -13,10 +13,10 @@
         <td class="name"><%= user.name %></td>
         <td class="centre login"><%= user.login %></td>
         <td class="centre email"><%= user.email %></td>
-        <td class="centre real"><%= user.checked_real %></td>
+        <td class="centre real"><%= checked_real_text(user) %></td>
         <td class="centre suspected-average"><%= user.average_suspected_amount %></td>
         <td class="centre guess-count"><%= user.received_guesses.count %></td>  
-        <td class="centre guess"><%= link_to 'guess', new_user_guess_path(user) %></td>
+        <td class="centre guess"><%= guess_link_for(user) %></td>
       </tr>
     <% } %>
 </table>

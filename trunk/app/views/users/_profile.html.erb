@@ -1,7 +1,7 @@
 <div class="profile-paragraph">
   <span class="name">You are <%= @user.name %>.</span>
   <span class="email">Your email address is '<%= @user.email %>'.</span>
-  <% if @user.announced? %>
+  <% if @user.published? %>
       <span class="money">You've declared your salary to be <%= @user.real %>!</span>
   <% else %>
     <span class="money">Like an opaque wuss, you haven't declared your salary. Fill in the field below and
