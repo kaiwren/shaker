@@ -27,7 +27,7 @@ class GuessesController < ApplicationController
   # GET /users/new.xml
   def new
     @guess = Guess.new
-
+    @receiving_user = User.find(params[:user_id])
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @guess }
