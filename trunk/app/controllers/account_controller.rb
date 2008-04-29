@@ -13,6 +13,39 @@ class AccountController < ApplicationController
     end
   end
 
+  def claim
+    @user = User.find_by_email(params[:email])
+    if (@user)
+      session[:claimed_email] = params[:email]
+      redirect_back_or_default(:controller => '/account', :action => 'signup')
+      flash[:notice] = "We recognise you #{@user.name}. You can claim your account here."
+    else
+      redirect_back_or_default(:controller => '/account', :action => 'login')
+      flash[:error] = "Trying to con us? #{params[:email]} isn't a real e-mail."
+    end
+  end
+
+  def signup
+    @user = User.find_by_email(session[:claimed_email])
+    if @user.nil? && (not request.post?)
+      redirect_back_or_default(:controller => '/account', :action => 'login')
+      flash[:error] = "Stop trying to hack shit!"
+      session[:claimed_email] = nil
+      return
+    end
+    return unless request.post?
+    @user = User.find_by_email(params[:email])
+    @user.password = params[:password]
+    @user.password_confirmation = params[:password_confirmation]
+    @user.save!
+    UserNotifier.deliver_signup_notification(@user)
+    redirect_back_or_default(:controller => '/account', :action => 'login')
+    flash[:notice] = "Thanks for signing up! An email with your activation code has been sent to you at #{@user.email}, with love from Steve."
+    session[:claimed_email] = nil
+  rescue ActiveRecord::RecordInvalid
+    render :action => 'signup'
+  end
+
   def login
     return unless request.post?
     self.current_user = User.authenticate(params[:login], params[:password])
@@ -26,18 +59,6 @@ class AccountController < ApplicationController
     else
       flash[:error] = "Something was wrong with either your username, password, or both. If you just signed up, please check your email to activate your account."
     end
-  end
-
-  def signup
-    @user = User.new(params[:user])
-    return unless request.post?
-    @user.save!
-#    self.current_user = @user
-    UserNotifier.deliver_signup_notification(@user)
-    redirect_back_or_default(:controller => '/account', :action => 'login')
-    flash[:notice] = "Thanks for signing up! Please check your e-mail (#{@user.email}) for a link which will activate your Shaker account."
-  rescue ActiveRecord::RecordInvalid
-    render :action => 'signup'
   end
 
   def logout

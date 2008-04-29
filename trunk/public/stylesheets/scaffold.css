@@ -94,3 +94,13 @@ td.centre{
   font-size: 0.9em;
   font-family: monospace;
 }
+
+.login-box {
+  width: 50%;
+  float: left;
+}
+
+.new-user-box {
+  width: 50%;
+  float: right;
+}

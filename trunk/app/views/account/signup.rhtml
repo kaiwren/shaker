@@ -1,16 +1,13 @@
 <%= error_messages_for :user %>
-<% form_for :user do |f| -%>
-<p><label for="login">Login</label><br/>
-<%= f.text_field :login %></p>
-
-<p><label for="email">Email</label><br/>
-<%= f.text_field :email %></p>
-
-<p><label for="password">Password</label><br/>
-<%= f.password_field :password %></p>
+<h1>Claim yours!</h1>
+<h5>Typing in a password for your account and hitting the button below will send an activation e-mail to <%= @user.email %>. Enjoy!</h5>
+<% form_tag(:controller => :accounts, :action => :signup) do  -%>
+  <%= hidden_field_tag :email, "#{@user.email}" %>
+  <p><label for="password">Password</label><br/>
+<%= password_field_tag :password %></p>
 
 <p><label for="password_confirmation">Confirm Password</label><br/>
-<%= f.password_field :password_confirmation %></p>
+<%= password_field_tag :password_confirmation %></p>
 
 <p><%= submit_tag 'Sign up' %></p>
 <% end -%>

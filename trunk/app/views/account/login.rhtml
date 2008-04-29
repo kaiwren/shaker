@@ -1,14 +1,26 @@
-<% form_tag do -%>
-<p><label for="login">Login</label><br/>
-<%= text_field_tag 'login' %></p>
+<div class="login-box">
+  <% form_tag do -%>
+    <p><label for="login">Login</label><br/>
+    <%= text_field_tag 'login' %></p>
 
-<p><label for="password">Password</label><br/>
-<%= password_field_tag 'password' %></p>
+    <p><label for="password">Password</label><br/>
+    <%= password_field_tag 'password' %></p>
 
-<!-- Uncomment this if you want this functionality
-<p><label for="remember_me">Remember me:</label>
-<%= check_box_tag 'remember_me' %></p>
--->
+    <!-- Uncomment this if you want this functionality
+    <p><label for="remember_me">Remember me:</label>
+    <%= check_box_tag 'remember_me' %></p>
+    -->
 
-<p><%= submit_tag 'Log in' %></p>
-<% end -%>
+    <p><%= submit_tag 'Log in' %></p>
+  <% end -%>
+</div>
+
+<div class="new-user-box">
+  <h1>New?</h1>
+  <h5>Tell us your e-mail address. If it's in the db, we'll take care of shit.</h5>
+    <% form_tag(:controller => :accounts, :action => :claim) do -%>
+    <p><label for="email">Your email address: </label><br/>
+    <%= text_field_tag 'email' %></p>
+    <p><%= submit_tag 'Claim your account!' %></p>
+  <% end -%>
+</div>
