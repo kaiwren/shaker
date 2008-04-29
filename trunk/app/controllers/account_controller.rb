@@ -15,18 +15,19 @@ class AccountController < ApplicationController
 
   def claim
     @user = User.find_by_email(params[:email])
-    if (@user)
+    if (@user && (!@user.activated?))
       session[:claimed_email] = params[:email]
       redirect_back_or_default(:controller => '/account', :action => 'signup')
       flash[:notice] = "We recognise you, #{@user.name}. You can claim your account here."
     else
       redirect_back_or_default(:controller => '/account', :action => 'login')
-      flash[:error] = "Trying to con us? #{params[:email]} isn't a real e-mail."
+      flash[:error] = "Trying to con us? Either #{params[:email]} isn't a real e-mail or you've already activated your account."
     end
   end
 
   def signup
     @user = User.find_by_email(session[:claimed_email])
+
     if @user.nil? && (not request.post?)
       redirect_back_or_default(:controller => '/account', :action => 'login')
       flash[:error] = "Stop trying to hack shit!"
@@ -49,7 +50,7 @@ class AccountController < ApplicationController
 
   def login
     return unless request.post?
-    self.current_user = User.authenticate(params[:login], params[:password])
+    self.current_user = User.authenticate(params[:email], params[:password])
     if logged_in?
       if params[:remember_me] == "1"
         self.current_user.remember_me
@@ -58,7 +59,7 @@ class AccountController < ApplicationController
       redirect_back_or_default(:controller => '/users', :action => 'index')
       flash[:notice] = "Logged in successfully"
     else
-      flash[:error] = "Something was wrong with either your username, password, or both. If you just signed up, please check your email to activate your account."
+      flash[:error] = "Something was wrong with either your username, password, or both. If you just signed up, please check your email to activate your account. If you've forgotten your password, simply re-claim your account (you won't lose guesses you've made thus far)."
     end
   end
 
