@@ -18,7 +18,7 @@ class AccountController < ApplicationController
     if (@user)
       session[:claimed_email] = params[:email]
       redirect_back_or_default(:controller => '/account', :action => 'signup')
-      flash[:notice] = "We recognise you #{@user.name}. You can claim your account here."
+      flash[:notice] = "We recognise you, #{@user.name}. You can claim your account here."
     else
       redirect_back_or_default(:controller => '/account', :action => 'login')
       flash[:error] = "Trying to con us? #{params[:email]} isn't a real e-mail."
@@ -37,6 +37,7 @@ class AccountController < ApplicationController
     @user = User.find_by_email(params[:email])
     @user.password = params[:password]
     @user.password_confirmation = params[:password_confirmation]
+    @user.make_activation_code
     @user.save!
     UserNotifier.deliver_signup_notification(@user)
     redirect_back_or_default(:controller => '/account', :action => 'login')

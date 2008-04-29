@@ -3,7 +3,6 @@
 <table>
     <tr class="header">
         <td class="name">Name</td>
-        <td class="centre login">Login</td>
         <td class="centre email">Email</td>
         <td class="centre real">"Real" Salary</td>
         <td class="centre suspected-average">Average Suspected Salary</td>
@@ -13,7 +12,6 @@
     <% @users.each{|user| %>
       <tr>
         <td class="name"><%= user.name %></td>
-        <td class="centre login"><%= user.login %></td>
         <td class="centre email"><%= user.email %></td>
         <td class="centre real"><%= checked_real_text(user) %></td>
         <td class="centre suspected-average"><%= user.average_suspected_amount %></td>
