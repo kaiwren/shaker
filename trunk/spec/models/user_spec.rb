@@ -2,8 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe "A", User do
   before(:each) do
-    @twer_one = User.create(:login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire')
-    @twer_two = User.create(:login => 'mire', :email => 'mire@example.com', :password => 'muire', :password_confirmation => 'muire')
+    @twer_one = User.create( :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire')
+    @twer_two = User.create( :email => 'mire@example.com', :password => 'muire', :password_confirmation => 'muire')
   end
 
   it "should respect his relationships" do
@@ -116,7 +116,7 @@ describe "A", User do
   def add_n_guesses_to(target_user, n)
     name = 'a'
     for i in 1..n
-      user = User.create(:login => "quire_#{name}", :email => "quire_#{name}@example.com", :password => 'quire', :password_confirmation => 'quire')
+      user = User.create(:email => "quire_#{name}@example.com", :password => 'quire', :password_confirmation => 'quire')
       target_user.received_guesses << Guess.new(:guessing_user => user, :receiving_user => @twer_two, :suspected_amount => 100 + i)
       name.next!
     end

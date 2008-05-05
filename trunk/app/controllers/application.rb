@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   # Uncomment the :secret if you're not using the cookie session store
   #  protect_from_forgery # :secret => '4babfa345c55ce0180ffc0e9995d8a69'
   def current_user
-    @current_user ||= User.find(session[:user])
+    @current_user ||= (User.find(session[:user]) if session[:user]) 
   end
 
   def logged_in?

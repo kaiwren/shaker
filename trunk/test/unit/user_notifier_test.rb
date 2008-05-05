@@ -18,7 +18,7 @@ class UserNotifierTest < Test::Unit::TestCase
 
   
   def test_place_holder
-    UserNotifier.deliver_signup_notification(User.create(:login => 'quire', :email => 'deobald@gmail.com', :password => 'quire', :password_confirmation => 'quire'))
+    UserNotifier.deliver_signup_notification(User.create(:email => 'deobald@gmail.com', :password => 'quire', :password_confirmation => 'quire'))
     assert true
   end
 
