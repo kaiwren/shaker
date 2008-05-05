@@ -3,6 +3,8 @@ class UserNotifier < ActionMailer::Base
     setup_email(user)
     @subject    += 'Please activate your new account'
     @body[:url]  = "http://YOURSITE/account/activate/#{user.activation_code}"
+    p 'ACTIVATED!!!!!'
+    p "http://localhost:3000/account/activate/#{user.activation_code}"
   end
   
   def activation(user)
