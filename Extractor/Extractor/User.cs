@@ -26,6 +26,11 @@ namespace Extractor
             get { return userPrincipal.EmailAddress;  }
         }
 
+        public string DistinguishedName
+        {
+            get { return userPrincipal.DistinguishedName; }
+        }
+
         public bool Enabled
         {
             get

@@ -21,7 +21,7 @@ namespace ExtractorTest
             strings.Add("fuck again");
 
             strings.RemoveAll((string s) => s.Contains("again"));
-            System.Console.WriteLine(strings.Count);
+            Console.WriteLine(strings.Count);
         }
 
         [Test]
@@ -32,8 +32,8 @@ namespace ExtractorTest
             strings.Add("fuck again");
 
             strings.Sort((string left, string right) => left.CompareTo(right));
-            System.Console.WriteLine(strings[0]);
-            System.Console.WriteLine(strings[1]);
+            Console.WriteLine(strings[0]);
+            Console.WriteLine(strings[1]);
         }
     }
 }

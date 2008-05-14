@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 using System.IO;
 using MvcApplication.Models;
 
@@ -9,6 +11,8 @@ namespace Extractor
 {
     public class UserSucker
     {
+        HashSet<string> offices = new HashSet<string>();
+
         public void Suck()
         {
             List<User> users = SuckAndSort();
@@ -42,10 +46,30 @@ namespace Extractor
         {
             foreach (User user in results)
             {
-                string line = user.Name + ", " + user.EmailAddress;
-                System.Console.WriteLine(line);
+                string line = user.Name + ", " + user.EmailAddress + ", " + Office(user.DistinguishedName);
+                Console.WriteLine(line);
                 writer.WriteLine(line);
             }
+
+            foreach (string office in offices)
+            {
+                Console.Write(office + ", ");
+            }
+        }
+
+        private string Office(string dn)
+        {
+            string lower = dn.ToLower();
+            string[] chunks = lower.Split(',');
+            string office = chunks[1].Replace("ou=", "");
+
+            offices.Add(office);
+            return office;
+
+//            string lowerDn = dn.ToLower();
+//            int left = lowerDn.IndexOf("ou=") + 3;
+//            return dn.Substring(left, 10);
+//            return dn;
         }
     }
 }
