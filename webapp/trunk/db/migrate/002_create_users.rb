@@ -12,6 +12,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :imagined, :integer
       t.column :employee_id, :integer
       t.column :name, :string
+      t.column :office, :string
       t.timestamps
     end
   end
