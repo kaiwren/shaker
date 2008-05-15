@@ -1,6 +1,6 @@
 class AccountController < ApplicationController
   
-  skip_before_filter  :login_required, :only => [:login, :claim, :signup, :activate]
+  skip_before_filter  :login_required, :only => [:login, :claim, :signup, :activate, :index]
   before_filter :login_from_cookie
 
   # say something nice, you goof!  something sweet.
