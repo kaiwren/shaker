@@ -1,7 +1,6 @@
 class AccountController < ApplicationController
-  # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
-  # If you want "remember me" functionality, add this before_filter to Application Controller
+  
+  skip_before_filter  :login_required, :only => [:login, :claim, :signup, :activate]
   before_filter :login_from_cookie
 
   # say something nice, you goof!  something sweet.

@@ -10,7 +10,7 @@
       $("tr.row:containsIgnoreCase('" + value + "')").removeClass('hidden').addClass('visible');
     }
 </script>
-<input id='filter-users' type="text" onkeyup="doFilter(this.value)">
+<label for="filter-users">Filter by: </label><input id='filter-users' name='filter-users' type="text" onkeyup="doFilter(this.value)">
 <table id="users">
     <tr class="header">
         <td class="name">Name</td>

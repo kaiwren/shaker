@@ -24,14 +24,14 @@ class UsersController < ApplicationController
 
   # GET /users/new
   # GET /users/new.xml
-  def new
-    @user = User.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @user }
-    end
-  end
+#  def new
+#    @user = User.new
+#
+#    respond_to do |format|
+#      format.html # new.html.erb
+#      format.xml  { render :xml => @user }
+#    end
+#  end
 
   # GET /users/1/edit
   def edit
@@ -58,8 +58,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    @user = User.find(params[:id])
-
+    @user = current_user #User.find(params[:id])
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = 'User was successfully updated.'
@@ -74,13 +73,13 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.xml
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(thought_workers_url) }
-      format.xml  { head :ok }
-    end
-  end
+#  def destroy
+#    @user = User.find(params[:id])
+#    @user.destroy
+#
+#    respond_to do |format|
+#      format.html { redirect_to(thought_workers_url) }
+#      format.xml  { head :ok }
+#    end
+#  end
 end
