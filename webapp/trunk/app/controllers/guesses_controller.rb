@@ -1,5 +1,6 @@
 class GuessesController < ApplicationController
   before_filter :load_target_user, :only => [:new, :create, :edit, :update]
+  before_filter :ensure_not_current_user, :only => [:new, :edit, :update]
   attr_reader :target_user
 
   # GET /thought_workers
@@ -27,14 +28,7 @@ class GuessesController < ApplicationController
   # GET /users/new.xml
   def new
     @guess = Guess.new
-    @receiving_user = User.find(params[:user_id])
-    
-    if @receiving_user == current_user
-      flash[:error] = 'Sidu sez: She who guesses at her own salary must eat many beans until she recognizes her folly.'
-      redirect_to(:controller => :users, :action => :index)
-      return
-    end
-
+   
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @guess }
@@ -69,6 +63,7 @@ class GuessesController < ApplicationController
   # PUT /users/1.xml
   def update
     @guess = Guess.find(params[:id])
+
     respond_to do |format|
       if @guess.update_attributes(params[:guess])
         flash[:notice] = 'Guess was successfully updated.'
@@ -96,5 +91,14 @@ class GuessesController < ApplicationController
   private
   def load_target_user
     @target_user = User.find(params[:user_id])
+  end
+
+  def ensure_not_current_user
+    @receiving_user = User.find(params[:user_id])
+    if @receiving_user == current_user
+      flash[:error] = 'Sidu sez: She who guesses at her own salary must eat many beans until she recognizes her folly.'
+      redirect_to(:controller => :users, :action => :index)
+      return
+    end
   end
 end

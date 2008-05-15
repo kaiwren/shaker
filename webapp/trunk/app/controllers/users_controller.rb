@@ -17,7 +17,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @user }
+      format.xml  { render :xml => @user.to_xml(:skip_instruct => true, :except => [:crypted_password])
+}
     end
   end
 
@@ -34,7 +35,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = current_user #User.find(params[:id])
   end
 
   # POST /users
