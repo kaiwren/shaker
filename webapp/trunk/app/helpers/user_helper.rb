@@ -8,6 +8,7 @@ module UserHelper
   end
 
   def guess_link_for(user)
+    return 'this is you' if user == current_user
     return link_to('guess', edit_user_guess_path(user, user.guess_from(current_user))) if user.has_a_guess_from current_user
     link_to 'guess', new_user_guess_path(user)
   end

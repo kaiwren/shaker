@@ -11,7 +11,7 @@
 
 <% if logged_in? %>
   <div class="header"><%= link_to "Everybody", users_path %>
-      | <%= link_to "Your Profile", edit_user_path(current_user) %>
+      | <%= link_to "Your Profile", '/users/edit' %>
       | <%= link_to "Logout", "/account/logout" %></div>
 <% end %>  
 

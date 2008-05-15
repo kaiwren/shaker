@@ -28,6 +28,13 @@ class GuessesController < ApplicationController
   def new
     @guess = Guess.new
     @receiving_user = User.find(params[:user_id])
+    
+    if @receiving_user == current_user
+      flash[:error] = 'Sidu sez: She who guesses at her own salary must eat many beans until she recognizes her folly.'
+      redirect_to(:controller => :users, :action => :index)
+      return
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @guess }
@@ -37,6 +44,7 @@ class GuessesController < ApplicationController
   # GET /users/1/edit
   def edit
     @guess = Guess.find(params[:id])
+    @receiving_user = User.find(params[:user_id])
   end
 
   # POST /users

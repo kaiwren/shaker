@@ -16,7 +16,7 @@ class UserNotifierTest < Test::Unit::TestCase
     @expected.set_content_type "text", "plain", { "charset" => CHARSET }
   end
 
-  
+
   def test_place_holder
     UserNotifier.deliver_signup_notification(User.create(:email => 'deobald@gmail.com', :password => 'quire', :password_confirmation => 'quire'))
     assert true
