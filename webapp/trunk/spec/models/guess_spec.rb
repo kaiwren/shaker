@@ -43,8 +43,8 @@ describe "A", User do
   end
 
   it "should be unique for a given pair of users" do
-    twer_one = User.new(:login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire')
-    twer_two = User.new(:login => 'mire', :email => 'mire@example.com', :password => 'muire', :password_confirmation => 'muire')
+    twer_one = User.new(:email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire')
+    twer_two = User.new(:email => 'mire@example.com', :password => 'muire', :password_confirmation => 'muire')
 
     twer_one.save.should be_true
     twer_two.save.should be_true

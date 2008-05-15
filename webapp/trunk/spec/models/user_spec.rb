@@ -70,32 +70,32 @@ describe "A", User do
     @twer_one.should be_published
   end
 
-  it "should not reveal the real salary when received guesses are fewer than 15" do
+  it "should not reveal the real salary when received guesses are fewer than 5" do
     @twer_one.real = 123000
     @twer_one.received_guesses.should have(0).things
     @twer_one.checked_real.should be_nil
   end
 
-  it "should know it isn't showtime when received guesses are less than 15" do
+  it "should know it isn't showtime when received guesses are less than 5" do
     @twer_one.should_not be_showtime
   end
 
   it "should know how many guesses are left before showtime" do
-    @twer_one.guesses_left_until_showtime.should == 15
-    add_n_guesses_to(@twer_two, 15).guesses_left_until_showtime.should == 0
+    @twer_one.guesses_left_until_showtime.should == 5
+    add_n_guesses_to(@twer_two, 5).guesses_left_until_showtime.should == 0
   end
 
-  it "should know it's showtime when received guesses are greater than 14" do
+  it "should know it's showtime when received guesses are greater than 4" do
     @twer_two.real = 123000
     @twer_two.checked_real.should be_nil
-    add_n_guesses_to(@twer_two, 16)
+    add_n_guesses_to(@twer_two, 6)
     @twer_two.should be_showtime
   end
 
-  it "should reveal all when received guesses are greater than 14" do
+  it "should reveal all when received guesses are greater than 4" do
     @twer_two.real = 123000
     @twer_two.checked_real.should be_nil
-    add_n_guesses_to(@twer_two, 16)
+    add_n_guesses_to(@twer_two, 6)
     @twer_two.save.should be_true
     @twer_two.checked_real.should == 123000
   end

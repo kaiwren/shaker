@@ -1,6 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  SHOWTIME_GUESS_THRESHOLD = 15
+  SHOWTIME_GUESS_THRESHOLD = 5
 
   has_many  :guesses, :foreign_key => :guessing_user_id
   has_many  :received_guesses, :foreign_key => :receiving_user_id, :class_name => 'Guess'
