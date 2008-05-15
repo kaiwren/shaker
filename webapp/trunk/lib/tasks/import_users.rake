@@ -22,7 +22,7 @@ namespace :shaker do
         i += 1
         row = l.split(',').collect(&:strip)
         log.debug("#{i}> Importing #{l}")
-        ActiveRecord::Base.connection.insert("INSERT INTO Users (id, name, email, office) VALUES (#{i}, \"#{row[0]}\", \"#{row[1]}\", \"#{row[2]}\")")
+        ActiveRecord::Base.connection.insert("INSERT INTO users (id, name, email, office) VALUES (#{i}, \"#{row[0]}\", \"#{row[1]}\", \"#{row[2]}\")")
       }
     }
   end

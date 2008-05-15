@@ -1,6 +1,17 @@
 <p class="shouting">Salaries listed in USD per annum.</p>
+<script type="text/javascript">
 
-<table>
+    jQuery.extend(jQuery.expr[':'], {
+      containsIgnoreCase: "(a.textContent||a.innerText||jQuery(a).text()||'').toLowerCase().indexOf((m[3]||'').toLowerCase())>=0"
+    });
+
+    function doFilter(value){
+      $("tr.row").removeClass('visible').addClass('hidden');
+      $("tr.row:containsIgnoreCase('" + value + "')").removeClass('hidden').addClass('visible');
+    }
+</script>
+<input id='filter-users' type="text" onkeyup="doFilter(this.value)">
+<table id="users">
     <tr class="header">
         <td class="name">Name</td>
         <td class="centre email">Email</td>
@@ -10,12 +21,12 @@
         <td class="centre guess"></td>
       </tr>
     <% @users.each{|user| %>
-      <tr>
+      <tr class="row">
         <td class="name"><%= user.name %></td>
         <td class="centre email"><%= user.email %></td>
         <td class="centre real"><%= checked_real_text(user) %></td>
         <td class="centre suspected-average"><%= user.average_suspected_amount %></td>
-        <td class="centre guess-count"><%= user.received_guesses.count %></td>  
+        <td class="centre guess-count"><%= user.received_guesses.count %></td>
         <td class="centre guess"><%= guess_link_for(user) %></td>
       </tr>
     <% } %>

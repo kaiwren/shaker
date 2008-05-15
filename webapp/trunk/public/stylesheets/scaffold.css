@@ -61,7 +61,7 @@ div.progressBar {
 }
 
 div.progressBar div.border {
-  background-color: #fff;
+  background-color: #fff; 
   border: 1px solid gray;
   width: 100%;
 }
@@ -103,4 +103,14 @@ td.centre{
 .new-user-box {
   width: 50%;
   float: right;
+}
+
+.hidden{
+  visibility: hidden;
+  display: none;
+}
+
+.visible{
+  visibility: visible;
+  display: table-row;
 }
