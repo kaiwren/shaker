@@ -1,15 +1,10 @@
-<p class="shouting">Salaries listed in USD per annum.</p>
-<script type="text/javascript">
+<ul>
+  <li class="instruction">Salaries listed in USD per annum.</li>
+  <li class="instruction">A star (<%= image_tag('star.png') %>) means you have guessed this person's salary.
+</ul>
 
-    jQuery.extend(jQuery.expr[':'], {
-      containsIgnoreCase: "(a.textContent||a.innerText||jQuery(a).text()||'').toLowerCase().indexOf((m[3]||'').toLowerCase())>=0"
-    });
+<script type="text/javascript"></script>
 
-    function doFilter(value){
-      $("tr.row").removeClass('visible').addClass('hidden');
-      $("tr.row:containsIgnoreCase('" + value + "')").removeClass('hidden').addClass('visible');
-    }
-</script>
 <label for="filter-users">Filter by: </label><input id='filter-users' name='filter-users' type="text" onkeyup="doFilter(this.value)">
 <table id="users">
     <tr class="header">
@@ -24,7 +19,10 @@
         <td class="name"><%= user.name %></td>
         <td class="column currency real"><%= checked_real_text(user) %></td>
         <td class="column currency suspected-average"><%= suspected_text(user) %></td>
-        <td class="column guess-count"><%= user.received_guesses.count %></td>
+        <td class="column guess-count">
+          <%= user.received_guesses.count %>
+          <%= image_tag('star.png', :alt => "you have guessed #{user.name}'s salary") if user.has_a_guess_from(current_user) %>
+        </td>
         <td class="column guess"><%= guess_link_for(user) %></td>
       </tr>
     <% } %>

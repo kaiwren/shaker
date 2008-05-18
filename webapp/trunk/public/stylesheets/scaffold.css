@@ -94,6 +94,10 @@ td.currency {
   font-weight: bold;
 }
 
+.instruction {
+  font-weight: bold;
+}
+
 .note {
   font-size: 0.9em;
   font-family: monospace;
@@ -117,4 +121,9 @@ td.currency {
 .visible {
   visibility: visible;
   display: table-row;
+}
+
+.inline-image {
+  position: relative;
+  bottom: -0.2em;
 }
