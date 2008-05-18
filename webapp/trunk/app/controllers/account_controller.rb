@@ -76,7 +76,7 @@ class AccountController < ApplicationController
       self.current_user = @user
       flash[:notice] = "Your account has been activated."
     else
-      flash[:notice] = "It looks like you're trying to activate an account.  Perhaps have already activated this account?"
+      flash[:notice] = "It looks like you're trying to activate an account.  Perhaps you have already activated this account?"
     end
     redirect_back_or_default(:controller => 'users', :action => 'index')
   end
