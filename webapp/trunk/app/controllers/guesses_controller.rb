@@ -90,6 +90,7 @@ class GuessesController < ApplicationController
 #  end
 
   private
+
   def load_target_user
     @target_user = User.find(params[:user_id])
   end

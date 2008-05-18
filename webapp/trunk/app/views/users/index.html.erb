@@ -14,20 +14,18 @@
 <table id="users">
     <tr class="header">
         <td class="name">Name</td>
-        <td class="centre email">Email</td>
-        <td class="centre real">"Real" Salary</td>
-        <td class="centre suspected-average">Average Suspected Salary</td>
-        <td class="centre guess-count">Guess Count</td>
-        <td class="centre guess"></td>
+        <td class="column real">"Real" Salary</td>
+        <td class="column suspected-average">Average Suspected Salary</td>
+        <td class="column guess-count">Guess Count</td>
+        <td class="column guess"></td>
       </tr>
     <% @users.each{|user| %>
       <tr class="row">
         <td class="name"><%= user.name %></td>
-        <td class="centre email"><%= user.email %></td>
-        <td class="centre real"><%= checked_real_text(user) %></td>
-        <td class="centre suspected-average"><%= user.average_suspected_amount %></td>
-        <td class="centre guess-count"><%= user.received_guesses.count %></td>
-        <td class="centre guess"><%= guess_link_for(user) %></td>
+        <td class="column currency real"><%= checked_real_text(user) %></td>
+        <td class="column currency suspected-average"><%= suspected_text(user) %></td>
+        <td class="column guess-count"><%= user.received_guesses.count %></td>
+        <td class="column guess"><%= guess_link_for(user) %></td>
       </tr>
     <% } %>
 </table>

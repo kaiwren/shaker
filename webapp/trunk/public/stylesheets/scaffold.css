@@ -76,9 +76,13 @@ tr.header td{
   border-bottom: 1px gray dotted;
 }
 
-td.centre{
+td.column {
   padding: 0 0.5em 0 0.5em;
   border-left: 1px gray dotted;
+}
+
+td.currency {
+  text-align: right;
 }
 
 .profile-paragraph {
@@ -105,12 +109,12 @@ td.centre{
   float: right;
 }
 
-.hidden{
+.hidden {
   visibility: hidden;
   display: none;
 }
 
-.visible{
+.visible {
   visibility: visible;
   display: table-row;
 }
