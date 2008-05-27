@@ -1,7 +1,9 @@
 <%= render :partial => 'profile' %>
 
 <% form_for @user, :url=> user_path(@user),  :html => {:method=> :put} do |f| %>
-  <div>How much money do you make here in the wonderful land of ThoughtWorks?</div>
+  <div>Please think in US dollars per annum. Need to <a href="http://www.xe.com/">convert</a>?.</div>
+  <p/>
+  <div>How much money do you make here in the wonderful land of ThoughtWorks? </div>
   <span class="real"><%= f.text_field :real, :value => @user.real %></span>
   <span class="submit.button"><%= f.submit "Publish!" %></span>
 <% end %>
