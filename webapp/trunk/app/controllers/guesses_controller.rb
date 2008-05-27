@@ -53,7 +53,7 @@ class GuessesController < ApplicationController
         format.html { redirect_to(user_guess_url(target_user, @guess)) }
         format.xml  { render :xml => @guess, :status => :created, :location => @guess }
       else
-        flash[:error] = @guess.errors.collect{|err| "<div>#{err.to_s}</div>"}
+        ensure_current_user_is_not_receiver
         format.html { render :action => "new" }
         format.xml  { render :xml => @guess.errors, :status => :unprocessable_entity }
       end

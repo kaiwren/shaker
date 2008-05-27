@@ -10,4 +10,8 @@ class Guess < ActiveRecord::Base
   validates_numericality_of :deserved_amount, :greater_than => -1, :unless => lambda{|guess| guess.deserved_amount.nil? }
 
   validates_uniqueness_of  :receiving_user_id, :scope => :guessing_user_id
+
+  def listeners
+    receiving_user.listeners
+  end
 end

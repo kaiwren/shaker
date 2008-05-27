@@ -1,6 +1,8 @@
 <ul>
-  <li class="instruction">Salaries listed in USD per annum.</li>
-  <li class="instruction">A star (<%= image_tag('star.png') %>) means you have guessed this person's salary.
+    <li class="instruction">Salaries listed in USD per annum.</li>
+    <li class="instruction">A star (<%= image_tag('star.png') %>) means you have guessed this person's salary.</li>
+    <li class="instruction">Receive an email notification when a user's salary becomes visible by clicking the email icon (<%= image_tag('email.png') %>)</li>
+    <li class="instruction">Cancel email notifications using this icon: <%= image_tag('email_delete.png') %></li>
 </ul>
 
 <script type="text/javascript"></script>
@@ -13,17 +15,29 @@
         <td class="column suspected-average">Average Suspected Salary</td>
         <td class="column guess-count">Guess Count</td>
         <td class="column guess"></td>
-      </tr>
+        <td class="column watch"></td>
+    </tr>
     <% @users.each{|user| %>
       <tr class="row">
-        <td class="name"><%= user.name %></td>
-        <td class="column currency real"><%= checked_real_text(user) %></td>
-        <td class="column currency suspected-average"><%= suspected_text(user) %></td>
-        <td class="column guess-count">
-          <%= user.received_guesses.count %>
-          <%= image_tag('star.png', :alt => "you have guessed #{user.name}'s salary") if user.has_a_guess_from(current_user) %>
-        </td>
-        <td class="column guess"><%= guess_link_for(user) %></td>
+          <td class="name"><%= user.name %></td>
+          <td class="column currency real"><%= checked_real_text(user) %></td>
+          <td class="column currency suspected-average"><%= suspected_text(user) %></td>
+          <td class="column guess-count">
+              <%= user.received_guesses.count %>
+              <%= image_tag('star.png', :alt => "you have guessed #{user.name}'s salary") if user.has_a_guess_from(current_user) %>
+          </td>
+          <td class="column guess"><%= guess_link_for(user) %></td>
+          <td class="column watch">
+              <div id="watchmen_<%= user.id %>" class="clickable" title="recieve notifications via e-mail when this user's salary is published">
+                  <div id="ajax_response_<%= user.id %>">
+                      <% unless current_user.watching?(user) %>
+                        <%= render_clickable_watch(user, current_user) %>
+                      <% else %>
+                        <%= render_clickable_unwatch(current_user.watcher_for(user)) %>
+                      <% end %>
+                  </div>
+              </div>
+          </td>
       </tr>
     <% } %>
 </table>

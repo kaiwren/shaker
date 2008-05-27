@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   has_many  :guesses, :foreign_key => :guessing_user_id
   has_many  :received_guesses, :foreign_key => :receiving_user_id, :class_name => 'Guess'
-  has_many  :guess_listeners, :foreign_key  => :target_user_id
+  has_many  :watchers, :foreign_key  => :target_user_id
 
   include UserAuthShite
 
@@ -40,13 +40,22 @@ class User < ActiveRecord::Base
     received_guesses.detect{|guess| guess.guessing_user == user }
   end
 
-  def register_guess_listener(user)
-    self.guess_listeners << GuessListener.new(:target_user => self, :listening_user => user)
+  def register_watcher(user)
+    self.watchers << Watcher.new(:target_user => self, :listening_user => user)
     self.save
   end
 
+  # listeners are users - the watcher is simply a join table
   def listeners
-    self.guess_listeners.collect(&:listening_user)  
+    self.watchers.collect(&:listening_user)  
+  end
+
+  def watching?(user)
+    watcher_for(user) ? true : false
+  end
+
+  def watcher_for(target)
+    Watcher.find_by_target_user_id_and_listening_user_id(target.id, self.id)
   end
 
   private

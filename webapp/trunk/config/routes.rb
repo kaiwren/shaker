@@ -6,6 +6,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'accounts/claim', :controller => 'account', :action => 'claim', :conditions => {:method => :post}
   map.connect 'accounts/signup', :controller => 'account', :action => 'signup'
   map.connect 'user/edit', :controller => 'users', :action => 'edit'
+  map.connect 'watchers', :controller => 'watchers', :action => 'create', :conditions => {:method => :post}
+  map.connect 'watchers/:id', :controller => 'watchers', :action => 'destroy', :conditions => {:method => :delete}
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'

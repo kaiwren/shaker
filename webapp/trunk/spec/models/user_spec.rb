@@ -113,16 +113,22 @@ describe "A", User do
   end
 
   it "should know who's watching" do
-    @twer_one.reload.guess_listeners.should be_empty
-    @twer_one.register_guess_listener(@twer_two)
+    @twer_one.reload.listeners.should be_empty
+    @twer_one.register_watcher(@twer_two).should be_true
     @twer_one.reload.listeners.should == [@twer_two]
   end
 
   it "should allow a user to register to watch another just once" do
-    @twer_one.register_guess_listener(@twer_two)
+    @twer_one.register_watcher(@twer_two).should be_true
     @twer_one.should be_valid
-    @twer_one.register_guess_listener(@twer_two)
+    @twer_one.register_watcher(@twer_two).should be_false
     @twer_one.should have(1).errors
+  end
+
+  it "should know if he is listening to another user" do
+    @twer_one.register_watcher(@twer_two).should be_true
+    @twer_two.watching?(@twer_one).should be_true
+    @twer_one.watching?(@twer_two).should be_false
   end
 
   def add_n_guesses_to(target_user, n)
