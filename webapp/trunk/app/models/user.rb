@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   has_many  :guesses, :foreign_key => :guessing_user_id
   has_many  :received_guesses, :foreign_key => :receiving_user_id, :class_name => 'Guess'
+  has_many  :guess_listeners, :foreign_key  => :target_user_id
 
   include UserAuthShite
 
@@ -37,6 +38,15 @@ class User < ActiveRecord::Base
 
   def guess_from(user)
     received_guesses.detect{|guess| guess.guessing_user == user }
+  end
+
+  def register_guess_listener(user)
+    self.guess_listeners << GuessListener.new(:target_user => self, :listening_user => user)
+    self.save
+  end
+
+  def listeners
+    self.guess_listeners.collect(&:listening_user)  
   end
 
   private

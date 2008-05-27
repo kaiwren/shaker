@@ -7,7 +7,6 @@ describe "A", User do
   end
 
   it "should respect his relationships" do
-
     @twer_one.should be_valid
     @twer_two.should be_valid
 
@@ -111,6 +110,19 @@ describe "A", User do
     @twer_one.received_guesses << guess
     @twer_one.save.should be_true
     @twer_one.guess_from(@twer_two).should == guess
+  end
+
+  it "should know who's watching" do
+    @twer_one.reload.guess_listeners.should be_empty
+    @twer_one.register_guess_listener(@twer_two)
+    @twer_one.reload.listeners.should == [@twer_two]
+  end
+
+  it "should allow a user to register to watch another just once" do
+    @twer_one.register_guess_listener(@twer_two)
+    @twer_one.should be_valid
+    @twer_one.register_guess_listener(@twer_two)
+    @twer_one.should have(1).errors
   end
 
   def add_n_guesses_to(target_user, n)
