@@ -44,11 +44,11 @@ describe "A", User do
   end
 
   it "should calculate average supected salary even if some guesses don't have it defined" do
-     @twer_one.received_guesses = (1..10).collect{|i|  Guess.new(:suspected_amount => i) }
-     @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
-     @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
-     @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
-     @twer_one.average_suspected_amount.should == 5
+    @twer_one.received_guesses = (1..10).collect{|i|  Guess.new(:suspected_amount => i) }
+    @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
+    @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
+    @twer_one.received_guesses <<  Guess.new(:suspected_amount => nil)
+    @twer_one.average_suspected_amount.should == 5
   end
 
   it "should not barf when calculating averages if there are no received guesses" do
@@ -135,7 +135,7 @@ describe "A", User do
     name = 'a'
     for i in 1..n
       user = User.create(:email => "quire_#{name}@example.com", :password => 'quire', :password_confirmation => 'quire')
-      target_user.received_guesses << Guess.new(:guessing_user => user, :receiving_user => @twer_two, :suspected_amount => 100 + i)
+      target_user.received_guesses << Guess.new(:guessing_user => user, :receiving_user => target_user, :suspected_amount => 100 + i)
       name.next!
     end
     target_user

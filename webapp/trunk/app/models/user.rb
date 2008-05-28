@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   has_many  :watchers, :foreign_key  => :target_user_id
 
   include UserAuthShite
-
+  include UserBehaviour
+  
   def average_suspected_amount
     calculate_average{|guess| guess.suspected_amount }
   end
@@ -16,20 +17,9 @@ class User < ActiveRecord::Base
     calculate_average{|guess| guess.deserved_amount}
   end
 
-  def published?
-    not real.nil?
-  end
 
-  def showtime?
-    not checked_real.nil?
-  end
-
-  def checked_real
-    real if received_guesses.count >= SHOWTIME_GUESS_THRESHOLD
-  end
-
-  def guesses_left_until_showtime
-    SHOWTIME_GUESS_THRESHOLD - received_guesses.count
+  def received_guess_count
+    received_guesses.count
   end
 
   def has_a_guess_from(user)
@@ -68,5 +58,9 @@ class User < ActiveRecord::Base
 
   def non_nil_received_guess_count(field_strategy)
     received_guesses.reject{|guess| field_strategy.call(guess).nil? }.size
+  end
+
+  def self.showtime_guess_threshold
+    SHOWTIME_GUESS_THRESHOLD
   end
 end

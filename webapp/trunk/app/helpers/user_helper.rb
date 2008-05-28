@@ -1,7 +1,7 @@
 module UserHelper
 
   def checked_real_text(user)
-    return link_to("publish your salary!", 'user/edit') if ((not user.published?) and user == current_user)
+    return link_to("publish your salary!", 'user/edit') if ((not user.published?) and user.id == current_user.id)
     return currencify(user.checked_real) if user.showtime?
     return "#{user.guesses_left_until_showtime} guesses to go..." if user.published?
     return "unpublished"
