@@ -1,3 +1,7 @@
+<div>
+  <%= image_tag('logo.jpg', :alt => "logo") %>
+</div>
+
 <div class="login-box">
   <h1>Been here before?</h1>
   <% form_tag do -%>
@@ -13,13 +17,13 @@
     -->
 
     <p><%= submit_tag 'Log in' %></p>
-    <p>Forgot your password? Too bad. We haven't implemented that yet.</p>
+    <p>Forgot your password? Email Steve or Sidu. We have no need for such "features".</p>
   <% end -%>
 </div>
 
 <div class="new-user-box">
   <h1>New?</h1>
-  <h5>Tell us your ThoughtWorks e-mail address. If it's in the db, we'll take care of shit.</h5>
+  <h5>Tell us your primary ThoughtWorks e-mail address. If it's in the db, we'll hook you up.</h5>
     <% form_tag(:controller => :accounts, :action => :claim) do -%>
     <p><label for="email">Your email address: </label><br/>
     <%= text_field_tag 'email' %></p>
