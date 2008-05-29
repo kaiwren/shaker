@@ -131,3 +131,7 @@ td.currency {
   position: relative;
   bottom: -0.2em;
 }
+
+.total td{
+  border-top: 2px dashed black;
+}

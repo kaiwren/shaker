@@ -11,7 +11,7 @@
     <%= javascript_include_tag "jquery-1.2.3.pack.js" %>
 </head>
 
-<body onload="initJQueryExtensions(); adjustCss();" style="text-align: center;">
+<body onload="initJQueryExtensions(); adjustCss();" >
 
 <% if logged_in? %>
   <div class="header"><%= link_to "Everybody", users_path %>

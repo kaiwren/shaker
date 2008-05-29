@@ -31,6 +31,12 @@ module UserHelper
     image_tag('email_delete.png', :alt => "un-watch", :onclick => "unwatch_user(#{watcher.id}, #{watcher.target_user.id});")
   end
 
+  def user_count_text(user)
+    count = user.count_of_watchers
+    people_person = count == 1 ? 'person is' : 'people are'
+    "(#{count} #{people_person} watching this user)"
+  end
+
   private
 
   def currencify(amount)

@@ -17,9 +17,9 @@
         <td class="column guess"></td>
         <td class="column watch"></td>
     </tr>
-    <% @user_reports.each{|user| %>
+    <% collected = @user_reports.collect{|user| %>
       <tr class="row">
-          <td class="name"><%= user.name %></td>
+          <td class="column name"><%= user.name %></td>
           <td class="column currency real"><%= checked_real_text(user) %></td>
           <td class="column currency suspected-average"><%= suspected_text(user) %></td>
           <td class="column guess-count">
@@ -35,10 +35,31 @@
                       <% else %>
                         <%= render_clickable_unwatch(current_user.watcher_for(user)) %>
                       <% end %>
-                      (<%=  user.count_of_watchers %>)
+                      <%= user_count_text(user) %>
                   </div>
               </div>
           </td>
       </tr>
-    <% } %>
+    <%
+       {:received_guess_count => user.received_guess_count,
+               :published => user.published?,
+               :checked_real => user.checked_reall,
+               :average_suspected_amount => user.average_suspected_amount,
+               :watcher_count => user.count_of_watchers}
+       }
+    %>
+    <%
+     total_published = collected.select{|data| data[:published] == true}.size
+     average_published_salary = total_published.zero? ? 0 : collected.collect{|data| data[:average_suspected_amount]}.compact.fold_left{|a,b| a+b} / total_published
+     total_guess_count = collected.collect{|data| data[:received_guess_count]}.fold_left{|a,b| a+b}
+     total_watcher_count = collected.collect{|data| data[:watcher_count]}.fold_left{|a,b| a+b}
+    %>
+    <tr class="total">
+        <td class="column name">Stats</td>
+        <td class="column real"><%= total_published %> of <%= collected.size %> salaries published, averaging $<%= average_published_salary %></td>
+        <td class="column suspected-average"></td>
+        <td class="column guess-count"><%= total_guess_count %> guesses made</td>
+        <td class="column guess"></td>
+        <td class="column watch"><%= total_watcher_count %> people watching other people</td>
+    </tr>
 </table>
