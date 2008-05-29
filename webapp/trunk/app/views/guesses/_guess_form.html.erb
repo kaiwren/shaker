@@ -1,2 +1,9 @@
-  <span class="guess">How much do you suppose <%= @receiving_user.name %> earns per year? <%= @f.text_field :suspected_amount, :value => @guess.suspected_amount %></span>
-  <span class="submit.button"><%= @f.submit "Guess!" %></span>
+
+<ul id="instructions">
+  <li class="instruction">Please think in US dollars per annum. Need to <a href="http://www.xe.com/" target="_blank">convert</a>?.</li>
+</ul>
+
+<div class="guess"><label for="suspected_amount" class="prompt">How much does <%= @receiving_user.name %> make?</label></div>
+
+<%= @f.text_field :suspected_amount, :value => @guess.suspected_amount %>
+<span class="submit.button"><%= @f.submit "Guess!" %></span>

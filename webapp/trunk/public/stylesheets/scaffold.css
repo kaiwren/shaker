@@ -110,8 +110,18 @@ td.currency {
   line-height: 1.3em;
 }
 
+.guess {
+  margin-top: 3em;
+  margin-bottom: 1em;
+}
+
 .web-two-oh {
   font-size: 1.4em;
+  line-height: 0.95em;
+}
+
+.web-two-oh-crazy {
+  font-size: 1.8em;
   line-height: 0.95em;
 }
 
