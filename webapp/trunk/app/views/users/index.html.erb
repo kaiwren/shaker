@@ -50,13 +50,12 @@
     %>
     <%
      total_published = collected.select{|data| data[:published] == true}.size
-     average_published_salary = total_published.zero? ? 0 : collected.collect{|data| data[:average_suspected_amount]}.compact.fold_left{|a,b| a+b} / total_published
      total_guess_count = collected.collect{|data| data[:received_guess_count]}.fold_left{|a,b| a+b}
      total_watcher_count = collected.collect{|data| data[:watcher_count]}.fold_left{|a,b| a+b}
     %>
     <tr class="total">
         <td class="column name">Stats</td>
-        <td class="column real"><%= total_published %> of <%= collected.size %> salaries published, averaging $<%= average_published_salary %></td>
+        <td class="column real"><%= total_published %> of <%= collected.size %> salaries published</td>
         <td class="column suspected-average"></td>
         <td class="column guess-count"><%= total_guess_count %> guesses made</td>
         <td class="column guess"></td>

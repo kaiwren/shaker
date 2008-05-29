@@ -16,7 +16,8 @@
 <% if logged_in? %>
   <div class="header"><%= link_to "Everybody", users_path %>
       | <%= link_to "Your Profile", '/user/edit' %>
-      | <%= link_to "Logout", "/account/logout" %></div>
+      | <%= link_to "Logout", "/account/logout" %>
+      | <%= link_to "About", "/about" %></div>
 <% end %>
 
 <p style="color: green"><%= flash[:notice] %></p>
