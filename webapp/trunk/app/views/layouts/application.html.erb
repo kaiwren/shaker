@@ -14,12 +14,16 @@
 <body onload="initJQuery(); adjustCss();" >
 <div id="container">
 
-<% if logged_in? %>
-  <div class="header"><%= link_to "Everybody", users_path %>
-      | <%= link_to "Your Profile", '/user/edit' %>
+  <div class="header">
+    <% if logged_in? %>
+      <%= link_to "Everybody", users_path %>
+      | <%= link_to "Your Salary", '/user/edit' %>
       | <%= link_to "Logout", "/account/logout" %>
-      | <%= link_to "About", "/about" %></div>
-<% end %>
+    <% else %>
+      <%= link_to "Login", "/account/login" %>
+    <% end %>
+      | <%= link_to "About", "/about" %>
+  </div>
 
 <p style="color: green"><%= flash[:notice] %></p>
 
