@@ -11,7 +11,7 @@ class WatchersController < ApplicationController
 
     respond_to do |format|
       if @watcher.save
-        @count_of_watchers = Watcher.count(:all, :conditions => "target_user_id = " + params[:target_user])
+        @user = User.find(@watcher.target_user_id)
         format.html { render :partial => "created" }
       else
         format.html { render :text => "already watching!" }
@@ -28,6 +28,7 @@ class WatchersController < ApplicationController
       return
     end
     @watcher.destroy
+    @user = User.find(@watcher.target_user_id)
 
     respond_to do |format|
       format.html { render :partial => "destroyed" }

@@ -48,6 +48,10 @@ class User < ActiveRecord::Base
     Watcher.find_by_target_user_id_and_listening_user_id(target.id, self.id)
   end
 
+  def count_of_watchers
+    watchers.count    
+  end
+  
   private
   def calculate_average(&field_strategy)
     return 0 if non_nil_received_guess_count(field_strategy) == 0
