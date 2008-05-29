@@ -1,13 +1,16 @@
-<ul>
+<ul id="instructions">
     <li class="instruction">Salaries listed in USD per annum.</li>
     <li class="instruction">A star (<%= image_tag('star.png') %>) means you have guessed this person's salary.</li>
-    <li class="instruction">Receive an email notification when a user's salary becomes visible by clicking the email icon (<%= image_tag('email.png') %>)</li>
+    <li class="instruction">Receive an email notification when a user's salary becomes visible by clicking the email icon: <%= image_tag('email.png') %></li>
     <li class="instruction">Cancel email notifications using this icon: <%= image_tag('email_delete.png') %></li>
 </ul>
 
 <script type="text/javascript"></script>
 
-<label for="filter-users">Filter by: </label><input id='filter-users' name='filter-users' type="text" onkeyup="doFilter(this.value)">
+<div id="filter">
+  <label for="filter-users" class="prompt">filter by: </label><input id='filter-users' name='filter-users' type="text" onkeyup="doFilter(this.value)">
+</div>
+
 <table id="users">
     <tr class="header">
         <td class="name">Name</td>

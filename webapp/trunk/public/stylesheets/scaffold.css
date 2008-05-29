@@ -6,6 +6,16 @@ body, p, ol, ul, td {
   line-height: 18px;
 }
 
+h1 {
+  line-height: 1em;
+}
+
+#container {
+  margin:0 auto;
+  text-align: left;
+  width: 80%;
+}
+
 pre {
   background-color: #eee;
   padding: 10px;
@@ -89,6 +99,22 @@ td.currency {
   text-align: right;
 }
 
+.header {
+  font-size: 1.2em;
+  font-weight: bolder;
+}
+
+.prompt {
+  font-size: 1.5em;
+  font-weight: bolder;
+  line-height: 1.3em;
+}
+
+.web-two-oh {
+  font-size: 1.4em;
+  line-height: 0.95em;
+}
+
 .profile-paragraph {
   margin-top: 2em;
   margin-bottom: 2em;
@@ -98,8 +124,18 @@ td.currency {
   font-weight: bold;
 }
 
+#instructions {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
 .instruction {
   font-weight: bold;
+}
+
+#filter {
+  margin-top: 2em;
+  margin-bottom: 2em;
 }
 
 .note {
@@ -108,13 +144,17 @@ td.currency {
 }
 
 .login-box {
-  width: 50%;
+  width: 43%;
   float: left;
+  /*border: 1px solid;*/
+  padding: 1em;
 }
 
 .new-user-box {
-  width: 50%;
+  width: 43%;
   float: right;
+  /*border: 1px solid;*/
+  padding: 1em;
 }
 
 .hidden {

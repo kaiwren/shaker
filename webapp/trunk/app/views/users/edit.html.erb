@@ -1,10 +1,13 @@
 <%= render :partial => 'profile' %>
 
 <% form_for @user, :url=> user_path(@user),  :html => {:method=> :put} do |f| %>
-  <div>Please think in US dollars per annum. Need to <a href="http://www.xe.com/">convert</a>?.</div>
-  <p/>
-  <div>How much money do you make here in the wonderful land of ThoughtWorks? </div>
+
+  <ul id="instructions">
+    <li class="instruction">Please think in US dollars per annum. Need to <a href="http://www.xe.com/" target="_blank">convert</a>?.</li>
+    <li class="instruction">Your salary won't be officially published until at least <%= User::SHOWTIME_GUESS_THRESHOLD %> other ThoughtWorkers have attempted to guess it first. Encourage them!</li>
+  </ul>
+
+  <label for="real" class="prompt">How much do you make?</label>
   <span class="real"><%= f.text_field :real, :value => @user.real %></span>
   <span class="submit.button"><%= f.submit "Publish!" %></span>
 <% end %>
-<div class="profile-paragraph note">Note: Your salary won't be officially published until at least <%= User::SHOWTIME_GUESS_THRESHOLD %> other ThoughtWorkers have attempted to guess it first. Encourage them!</div>
