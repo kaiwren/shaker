@@ -48,6 +48,7 @@ describe "A", User do
     one = results[0]
     two = results[1]
 
+    one.guess_id_for_current_user.should == @twer_one.guess_from(@twer_two).id
     one.should be_has_a_guess_from_current_user
     two.should_not be_has_a_guess_from_current_user
   end
@@ -62,6 +63,9 @@ describe "A", User do
 
     one.should be_watched_by_current_user
     two.should_not be_watched_by_current_user
+
+    one.count_of_watchers.should == 1
+    two.count_of_watchers.should == 0
   end
 
   def add_n_guesses_to(target_user, n)

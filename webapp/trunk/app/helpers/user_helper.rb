@@ -17,12 +17,18 @@ module UserHelper
     link_to 'guess', new_user_guess_path(user)
   end
 
+  def guess_link_for_report(user_report)
+    return 'this is you' if user_report.id == current_user.id
+    return link_to('guess', "/users/#{user_report.id}/guesses/#{user_report.guess_id_for_current_user}/edit") if user_report.has_a_guess_from_current_user?
+    link_to 'guess', "/users/#{user_report.id}/guesses/new"
+  end
+
   def render_clickable_watch(target_user, listening_user)
     image_tag('email.png', :alt => "watch", :onclick => "watch_user(#{target_user.id}, #{listening_user.id});")
   end
 
-  def render_clickable_unwatch(guess_listener)
-    image_tag('email_delete.png', :alt => "un-watch", :onclick => "unwatch_user(#{guess_listener.id}, #{guess_listener.target_user.id});")
+  def render_clickable_unwatch(watcher)
+    image_tag('email_delete.png', :alt => "un-watch", :onclick => "unwatch_user(#{watcher.id}, #{watcher.target_user.id});")
   end
 
   private

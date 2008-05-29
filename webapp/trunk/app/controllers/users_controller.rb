@@ -1,15 +1,22 @@
 class UsersController < ApplicationController
   # GET /thought_workers
   # GET /thought_workers.xml
-  def index
+  def index_old
     @users = User.find(:all)
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html# index.html.erb
       format.xml  { render :xml => @users }
     end
   end
 
+  def index
+    @user_reports = UserReport.find_ooga(current_user)
+    respond_to do |format|
+      format.html# new_index.html.erb
+      format.xml  { render :xml => @users }
+    end
+  end
   # GET /users/1
   # GET /users/1.xml
   def show

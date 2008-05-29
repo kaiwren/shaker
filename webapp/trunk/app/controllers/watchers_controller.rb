@@ -11,6 +11,7 @@ class WatchersController < ApplicationController
 
     respond_to do |format|
       if @watcher.save
+        @count_of_watchers = Watcher.count(:all, :conditions => "target_user_id = " + params[:target_user])
         format.html { render :partial => "created" }
       else
         format.html { render :text => "already watching!" }

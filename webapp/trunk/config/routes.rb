@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  map.connect 'users/index_old', :controller => 'users', :action => 'index_old', :conditions => {:method => :get}
   map.resources :users, :has_many => :guesses
 
   # The priority is based upon order of creation: first created -> highest priority.
