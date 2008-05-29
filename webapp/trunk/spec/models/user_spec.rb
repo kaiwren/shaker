@@ -131,6 +131,19 @@ describe "A", User do
     @twer_one.watching?(@twer_two).should be_false
   end
 
+  it "should know when it should notify listeners to avoid spamming them after the first email at showtime" do
+    @twer_two.real = 123000
+    @twer_two.checked_real.should be_nil
+
+    add_n_guesses_to(@twer_two, User.showtime_guess_threshold)
+    @twer_two.should be_showtime
+    @twer_two.should be_notify_listeners
+
+    add_n_guesses_to(@twer_two, 1)
+    @twer_two.should be_showtime
+    @twer_two.should_not be_notify_listeners
+  end
+
   def add_n_guesses_to(target_user, n)
     name = 'a'
     for i in 1..n

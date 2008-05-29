@@ -1,5 +1,10 @@
 class GuessObserver < ActiveRecord::Observer
   def after_save(guess)
-#    "Send Email to #{guess.target_user.listeners}"
+    receiving_user = guess.receiving_user
+    if receiving_user.notify_listeners?
+      receiving_user.listeners{|listener|
+        UserNotifier.deliver_watched_user_salary_visible(listener, receiving_user)
+      }
+    end
   end
 end

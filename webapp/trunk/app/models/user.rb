@@ -51,7 +51,11 @@ class User < ActiveRecord::Base
   def count_of_watchers
     watchers.count    
   end
-  
+
+  def notify_listeners?
+    showtime? and received_guess_count == User.showtime_guess_threshold  
+  end
+
   private
   def calculate_average(&field_strategy)
     return 0 if non_nil_received_guess_count(field_strategy) == 0
