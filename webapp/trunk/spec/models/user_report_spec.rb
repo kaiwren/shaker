@@ -10,7 +10,7 @@ describe "A", User do
     add_n_guesses_to(@twer_one, 3)
     @twer_one.save.should be_true
 
-    results = UserReport.find_ooga
+    results = UserReport.find_ooga @twer_two
 
     results.should have(5).things
 
@@ -35,9 +35,33 @@ describe "A", User do
     one.guesses_left_until_showtime.should == 0
     two.guesses_left_until_showtime.should == 3
 
-#    one.average_suspected_amount.should == User.find(:first)
-    
+    one.average_suspected_amount.should == User.find(:first).average_suspected_amount
 
+
+  end
+
+  it "should receive guess from current user" do
+    @twer_one.received_guesses << Guess.new(:guessing_user => @twer_two, :receiving_user => @twer_one, :suspected_amount => 100)
+    results = UserReport.find_ooga @twer_two
+    results.should have(2).things
+
+    one = results[0]
+    two = results[1]
+
+    one.should be_has_a_guess_from_current_user
+    two.should_not be_has_a_guess_from_current_user
+  end
+
+  it "should check if the retrieved user is watched by current user" do
+    @twer_one.register_watcher(@twer_two)
+    results = UserReport.find_ooga @twer_two
+    results.should have(2).things
+
+    one = results[0]
+    two = results[1]
+
+    one.should be_watched_by_current_user
+    two.should_not be_watched_by_current_user
   end
 
   def add_n_guesses_to(target_user, n)
