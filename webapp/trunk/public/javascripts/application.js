@@ -7,7 +7,7 @@ function initJQuery() {
     });
 
     $("#filter-users").bind('keyup', function() {
-        $("tr.row").removeClass('visible').addClass('hidden');
+        $("tr.row:not(:containsIgnoreCase('" + this.value + "'))").removeClass('visible').addClass('hidden');
         $("tr.row:containsIgnoreCase('" + this.value + "')").removeClass('hidden').addClass('visible');
     });
 
