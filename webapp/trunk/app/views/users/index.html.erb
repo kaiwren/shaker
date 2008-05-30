@@ -53,8 +53,8 @@
     %>
     <%
      total_published = collected.select{|data| data[:published] == true}.size
-     total_guess_count = collected.collect{|data| data[:received_guess_count]}.fold_left{|a,b| a+b}
-     total_watcher_count = collected.collect{|data| data[:watcher_count]}.fold_left{|a,b| a+b}
+     total_guess_count = collected.collect{|data| data[:received_guess_count]}.fold_left(0){|a,b| a+b}
+     total_watcher_count = collected.collect{|data| data[:watcher_count]}.fold_left(0){|a,b| a+b}
     %>
     <tr class="total">
         <td class="column name">Stats</td>
